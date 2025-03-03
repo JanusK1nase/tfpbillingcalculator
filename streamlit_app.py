@@ -311,7 +311,7 @@ if st.button("Get Total"):
     total_billing = sum(st.session_state.billing_values)
     st.write("Total Billing: ", total_billing)
 
-if st.button("Generate PDF"):
+if st.button("Generate Bill"):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -331,7 +331,7 @@ if st.button("Generate PDF"):
     with open("billing.pdf", "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
-    st.download_button(label="Download PDF",
+    st.download_button(label="Download Bill",
                        data=PDFbyte,
                        file_name=f"{patientname} Billing.pdf",
                        mime="application/octet-stream")
