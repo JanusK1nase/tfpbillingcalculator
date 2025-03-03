@@ -333,5 +333,5 @@ if st.button("Generate PDF"):
 
     st.download_button(label="Download PDF",
                        data=PDFbyte,
-                       file_name=(f"{patientname} Billing.pdf",
+                       file_name=f"{patientname} Billing.pdf",
                        mime="application/octet-stream")
