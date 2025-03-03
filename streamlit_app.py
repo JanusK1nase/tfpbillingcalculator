@@ -307,7 +307,7 @@ def main():
 
 main()
 
-if st.button("Print Bill"):
+if st.button("Get Total"):
     total_billing = sum(st.session_state.billing_values)
     st.write("Total Billing: ", total_billing)
 
@@ -333,5 +333,5 @@ if st.button("Generate PDF"):
 
     st.download_button(label="Download PDF",
                        data=PDFbyte,
-                       file_name="billing.pdf",
+                       file_name=(f"{patientname} Billing.pdf",
                        mime="application/octet-stream")
