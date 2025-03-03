@@ -282,7 +282,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds19"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"RC {(meds).capitalize} {rcfood_cans} can/s", to_bill))
+            st.session_state.itemized_billing.append((f"RC {(meds.capitalize())} {rcfood_cans} can/s", to_bill))
 
 
     elif meds in ["reco" , "recovery"]:
