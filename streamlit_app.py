@@ -222,7 +222,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds12"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append(("fIV Line {ivline} pc/s \nIV Fluids {ivfludis} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
+            st.session_state.itemized_billing.append((f"IV Line {ivline} pc/s \nIV Fluids {ivfludis} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
 
     elif meds == "oxygen" or meds == "oxygen therapy":
         to_bill = st.number_input("How much to charge Oxygen therapy? ")
@@ -277,13 +277,12 @@ def main():
 
 
     elif meds in ["gastro", "hepatic" , "cardiac" , "renal" , "urinary"]:
-        meds = meds.capitalize
         rcfood_cans = st.number_input("How many cans? ")
         to_bill = (rcfood_cans * 450)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds19"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"RC {meds} {rcfood_cans} can/s", to_bill))
+            st.session_state.itemized_billing.append((f"RC {(meds).capitalize} {rcfood_cans} can/s", to_bill))
 
 
     elif meds in ["reco" , "recovery"]:
