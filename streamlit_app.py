@@ -9,8 +9,8 @@ from email.mime.base import MIMEBase
 from email import encoders
 import os
 
-st.title("Billing Calculator")
-st.header("Alpha version 1.0 by JRT DVM of The Furr Project QC")
+st.title("TFP Billing Calculator")
+st.header("Beta 1.1 - JRT")
 
 clientname = st.text_input("Client Name: ")
 patientname = st.text_input("Patient Name: ")
@@ -70,6 +70,7 @@ def main():
     if meds in ["orni", "atro", "coforta", "doxy", "ampi", "tolfine", "calmivet", "fercob", "septo", "tramadol", "metoc", "tranex", "dexa", "ascorbic", "phytomenadione", "dupha", "furo", "cefurox", "salbutamol", "metro", "dcm", "bromhex"]:
         dose_number = st.number_input("How many doses? ")
         to_bill = (dose_number * daily_med_rate_1)
+        st.write(to_bill)
         dose_number = int(dose_number)
         if st.button("Save to Bill", key="meds1"):
             st.session_state.billing_values.append(to_bill)
@@ -78,6 +79,7 @@ def main():
     elif meds in ["marbo", "oxytocin", "diphen", "epi", "omep", "ome", "ceftriaxone", "ceftri", "coamox"]:
         dose_number = st.number_input("How many doses? ")
         to_bill = (dose_number * daily_med_rate_2)
+        st.write(to_bill)
         dose_number = int(dose_number)
         if st.button("Save to Bill", key="meds2"):
             st.session_state.billing_values.append(to_bill)
@@ -263,7 +265,43 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds17"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"ICU Charges {icudays} days", to_bill))
+            st.session_state.itemized_billing.append((f"ICU Charges {icudays} day/s", to_bill))
+
+    elif meds == "medical boarding" or meds == "boarding":
+        boarding_days = st.number_input("How many days in boarding? ")
+        to_bill = (boarding_days * 1000)
+        st.write(to_bill)
+        if st.button("Save to Bill", key="meds18"):
+            st.session_state.billing_values.append(to_bill)
+            st.session_state.itemized_billing.append((f"Medical Boarding Charges {boarding_days} day/s", to_bill))
+
+
+    elif meds in ["gastro", "hepatic" , "cardiac" , "renal" , "urinary"]:
+        meds = meds.capitalize
+        rcfood_cans = st.number_input("How many cans? ")
+        to_bill = (rcfood_cans * 450)
+        st.write(to_bill)
+        if st.button("Save to Bill", key="meds19"):
+            st.session_state.billing_values.append(to_bill)
+            st.session_state.itemized_billing.append((f"RC {meds} {rcfood_cans} can/s", to_bill))
+
+
+    elif meds in ["reco" , "recovery"]:
+        reco_cans = st.number_input("How many cans? ")
+        to_bill = (reco_cans * 350)
+        st.write(to_bill)
+        if st.button("Save to Bill", key="meds20"):
+            st.session_state.billing_values.append(to_bill)
+            st.session_state.itemized_billing.append((f"RC RECOVERY {reco_cans} can/s", to_bill))
+    
+    elif meds == "starter":
+        starter_cans = st.number_input("How many cans? ")
+        to_bill = (reco_cans * 250)
+        st.write(to_bill)
+        if st.button("Save to Bill", key="meds21"):
+            st.session_state.billing_values.append(to_bill)
+            st.session_state.itemized_billing.append((f"RC STARTER {starter_cans} can/s", to_bill))
+
 
     st.write(st.session_state.itemized_billing)
 
