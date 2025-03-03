@@ -8,6 +8,8 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+from datetime import datetime
+
 
 st.title("TFP Billing Calculator")
 st.header("Beta 1.1 - JRT")
@@ -320,6 +322,7 @@ if st.button("Generate Bill"):
     pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt="The Furr Project QC", ln=True, align="C")
     pdf.cell(200, 10, txt="Billing Statement", ln=True, align="C")
+    pdf.cell(200, 10, txt=f"Date: {datetime.now().strftime('%Y-%m-%d')}", ln=True, align="R")
     pdf.cell(200, 10, txt=f"Client Name: {clientname}", ln=True, align="L")
     pdf.cell(200, 10, txt=f"Patient Name: {patientname}", ln=True, align="L")
     pdf.cell(200, 10, txt=f"Species: {species}", ln=True, align="L")
