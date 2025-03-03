@@ -222,7 +222,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds12"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"IV Line {ivline} pc/s \nIV Fluids {ivfludis} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
+            st.session_state.itemized_billing.append((f"IV Line {ivline} pc/s \nIV Fluids {ivfluids} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
 
     elif meds == "oxygen" or meds == "oxygen therapy":
         to_bill = st.number_input("How much to charge Oxygen therapy? ")
@@ -270,6 +270,7 @@ def main():
     elif meds == "medical boarding" or meds == "boarding":
         boarding_days = st.number_input("How many days in boarding? ")
         to_bill = (boarding_days * 1000)
+        boarding_days = int(boarding_days)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds18"):
             st.session_state.billing_values.append(to_bill)
@@ -279,6 +280,7 @@ def main():
     elif meds in ["gastro", "hepatic" , "cardiac" , "renal" , "urinary"]:
         rcfood_cans = st.number_input("How many cans? ")
         to_bill = (rcfood_cans * 450)
+        rcfood_cans = int(rcfood_cans)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds19"):
             st.session_state.billing_values.append(to_bill)
@@ -288,6 +290,7 @@ def main():
     elif meds in ["reco" , "recovery"]:
         reco_cans = st.number_input("How many cans? ")
         to_bill = (reco_cans * 350)
+        reco_cans = int(reco_cans)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds20"):
             st.session_state.billing_values.append(to_bill)
@@ -296,6 +299,7 @@ def main():
     elif meds == "starter":
         starter_cans = st.number_input("How many cans? ")
         to_bill = (reco_cans * 250)
+        starter_cans = int(starter_cans)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds21"):
             st.session_state.billing_values.append(to_bill)
