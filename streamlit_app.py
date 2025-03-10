@@ -340,7 +340,7 @@ if st.button("Generate Bill"):
     for name, value in st.session_state.itemized_billing:
         pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
     pdf.cell(200, 10, txt="Consumables", ln=True, align="C")
-    for name, value in st.session_state.itemized_billing_consumabels:
+    for name, value in st.session_state.itemized_billing_consumables:
         pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
         
     total_billing = sum(st.session_state.billing_values)
