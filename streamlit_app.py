@@ -339,6 +339,9 @@ if st.button("Generate Bill"):
     pdf.cell(200, 10, txt="Injectable Meds", ln=True, align="C")
     for name, value in st.session_state.itemized_billing:
         pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
+    pdf.set_font("Arial", "I", size=10)
+    pdf.cell(200, 10, txt="Injectable meds are printed as their respective drug codes, kindly approach our vets/nurses for any inquiries.", ln=True, align="L")
+    pdf.set_font("Arial", size=12)
     pdf.cell(200, 10, txt="Consumables", ln=True, align="C")
     for name, value in st.session_state.itemized_billing_consumables:
         pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
