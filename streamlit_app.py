@@ -22,8 +22,12 @@ weight = st.number_input("Patient Weight: ")
 # Initialize session state variables
 if 'billing_values' not in st.session_state:
     st.session_state.billing_values = []
+if 'itemized_billing_boarding' not in st.session_state:
+    st.session_state.itemized_billing_boarding = []
 if 'itemized_billing' not in st.session_state:
     st.session_state.itemized_billing = []
+if 'itemized_billing_consumables' not in st.session_state:
+    st.session_state.itemized_billing_consumables = []
 
 def main():
     confinementdays = st.number_input("How many days to charge: ")
@@ -41,10 +45,11 @@ def main():
         daily_rate_charge = (confinementdays * 5000)
     else:
         daily_rate_charge = (confinementdays * 5500)
+    confinementdays = int(confinementdays)
     st.write(daily_rate_charge)
     if st.button("Save to Bill", key="daily_rate_charge"):
         st.session_state.billing_values.append(daily_rate_charge)
-        st.session_state.itemized_billing.append(("Daily Rate Charge", daily_rate_charge))
+        st.session_state.itemized_billing_boarding.append((f"Confinement Charges for {confinementdays} day/s", daily_rate_charge))
     
     if weight <= 5:
         daily_med_rate_1 = 100
@@ -224,14 +229,14 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds12"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"IV Line {ivline} pc/s \nIV Fluids {ivfluids} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"IV Line {ivline} pc/s \nIV Fluids {ivfluids} bottle/s \nIV Cannula {ivcannula} pc/s \nInfusion Pump {infusionpump} days", to_bill))
 
     elif meds == "oxygen" or meds == "oxygen therapy":
         to_bill = st.number_input("How much to charge Oxygen therapy? ")
         st.write(to_bill)
         if st.button("Save to Bill", key="meds13"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append(("Oxygen Therapy", to_bill))
+            st.session_state.itemized_billing_consumables.append(("Oxygen Therapy", to_bill))
 
     elif meds == "diazepam":
         diazepamvial = st.number_input("How many vials of Diazepam?")
@@ -249,7 +254,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds15"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"Towel {towelcount} pc/s", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"Towel {towelcount} pc/s", to_bill))
 
     elif meds == "underpads" or meds == "pads" or meds == "underpad" or meds == "pad":
         padcount = st.number_input("How many underpad/s to charge? ")
@@ -258,7 +263,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds16"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"Underpads {padcount} piece/s", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"Underpads {padcount} piece/s", to_bill))
     
     elif meds == "icu":
         icudays = st.number_input("How many days in ICU? ")
@@ -267,16 +272,16 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds17"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"ICU Charges {icudays} day/s", to_bill))
+            st.session_state.itemized_billing_boarding.append((f"ICU Charges {icudays} day/s", to_bill))
 
     elif meds == "medical boarding" or meds == "boarding":
         boarding_days = st.number_input("How many days in boarding? ")
-        to_bill = (boarding_days * 1000)
+        to_bill = (boarding_days * 850)
         boarding_days = int(boarding_days)
         st.write(to_bill)
         if st.button("Save to Bill", key="meds18"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"Medical Boarding Charges {boarding_days} day/s", to_bill))
+            st.session_state.itemized_billing_boarding.append((f"Medical Boarding Charges for {boarding_days} day/s", to_bill))
 
 
     elif meds in ["gastro", "hepatic" , "cardiac" , "renal" , "urinary"]:
@@ -286,7 +291,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds19"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"RC {(meds.capitalize())} {rcfood_cans} can/s", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"RC {(meds.capitalize())} {rcfood_cans} can/s", to_bill))
 
 
     elif meds in ["reco" , "recovery"]:
@@ -296,7 +301,7 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds20"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"RC RECOVERY {reco_cans} can/s", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"RC RECOVERY {reco_cans} can/s", to_bill))
     
     elif meds == "starter":
         starter_cans = st.number_input("How many cans? ")
@@ -305,10 +310,10 @@ def main():
         st.write(to_bill)
         if st.button("Save to Bill", key="meds21"):
             st.session_state.billing_values.append(to_bill)
-            st.session_state.itemized_billing.append((f"RC STARTER {starter_cans} can/s", to_bill))
+            st.session_state.itemized_billing_consumables.append((f"RC STARTER {starter_cans} can/s", to_bill))
 
 
-    st.write(st.session_state.itemized_billing)
+    st.write(st.session_state.itemized_billing , st.session_state.itemized_billing_boarding , st.session_state.itemized_billing_consumables)
 
 main()
 
@@ -328,8 +333,16 @@ if st.button("Generate Bill"):
     pdf.cell(200, 10, txt=f"Species: {species}", ln=True, align="L")
     pdf.cell(200, 10, txt=f"Weight: {weight}", ln=True, align="L")
     pdf.cell(200, 10, txt="Billing Details", ln=True, align="C")
+    pdf.cell(200, 10, txt="Boarding Charges", ln=True, align="C")
+    for name, value in st.session_state.itemized_billing_boarding:
+        pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
+    pdf.cell(200, 10, txt="Injectable Meds", ln=True, align="C")
     for name, value in st.session_state.itemized_billing:
         pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
+    pdf.cell(200, 10, txt="Consumables", ln=True, align="C")
+    for name, value in st.session_state.itemized_billing_consumabels:
+        pdf.cell(200, 10, txt=f"{name}: {int(value)}", ln=True, align="L")
+        
     total_billing = sum(st.session_state.billing_values)
     pdf.cell(200, 10, txt=f"Total Billing: {total_billing}", ln=True, align="L")
     pdf.output("billing.pdf")
