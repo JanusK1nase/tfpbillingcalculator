@@ -328,7 +328,7 @@ if st.button("Generate Bill"):
     pdf.cell(200, 10, txt="The Furr Project QC", ln=True, align="C")
     pdf.cell(200, 10, txt="Billing Statement", ln=True, align="C")
     pdf.cell(100, 10, txt=f"Client Name: {clientname}", ln=False, align="L")
-    pdf.cell(100, 10, txt=f"Date: {datetime.now().strftime('%Y-%m-%d')}", ln=True, align="R") 
+    pdf.cell(100, 10, txt=f"Date: {datetime.now().strftime('%m-%d-%Y')}", ln=True, align="R") 
     pdf.cell(200, 10, txt=f"Patient Name: {patientname}", ln=True, align="L")
     pdf.cell(200, 10, txt=f"Species: {species}", ln=True, align="L")
     pdf.cell(200, 10, txt=f"Weight: {weight}", ln=True, align="L")
