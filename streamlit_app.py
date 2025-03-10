@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 st.title("TFP Billing Calculator")
-st.header("Beta 1.1 - JRT")
+st.header("Beta 1.2 - JRT")
 
 clientname = st.text_input("Client Name: ")
 patientname = st.text_input("Patient Name: ")
